@@ -1,0 +1,11 @@
+<?php
+
+$dbHost         = "host";
+$dbPort         = 3306;
+$dbName         = "TrackLog";
+$dbUser         = "gts";
+$dbPass         = "pass";
+$gpsProvider    = "Provider";
+$enableUpdate   = true;
+
+$wsURL          = "http://190.12.73.86/json/json_receive.php";
