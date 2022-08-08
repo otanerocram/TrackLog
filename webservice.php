@@ -22,7 +22,6 @@ $sqlQuery     = "SELECT `posicionId`, `vehiculoId`, `velocidad`, `satelites`, `r
 
 $resultado     = $conexion->query($sqlQuery);
 
-// Variables
 $items['items'] = array();
 $responseData = array();
 $placas = array();
@@ -68,7 +67,6 @@ if ($resultado->num_rows > 0) {
                 break;
         }
 
-
         $responseData[] = array(
             "placa"         => $dID,
             "fechaEvento"   => utf8_encode($row['gpsDate']),
@@ -104,29 +102,27 @@ $jsonData = json_encode($items);
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-    CURLOPT_URL             => $wsURL,
-    CURLOPT_POSTFIELDS         => $jsonData,
-    CURLOPT_RETURNTRANSFER     => true,
-    // CURLOPT_ENCODING 		=> "",
-    CURLOPT_MAXREDIRS         => 10,
-    CURLOPT_TIMEOUT         => 30,
-    CURLOPT_HTTP_VERSION     => CURL_HTTP_VERSION_1_1,
-    CURLOPT_CUSTOMREQUEST     => "POST",
-    CURLOPT_HTTPHEADER         => array(
+    CURLOPT_URL => $wsURL,
+    CURLOPT_POSTFIELDS => $jsonData,
+    CURLOPT_RETURNTRANSFER => true,
+    // CURLOPT_ENCODING => "",
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 30,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => "POST",
+    CURLOPT_HTTPHEADER => array(
         'Content-Type: application/json;charset=utf-8'
     ),
 ));
 
-$response     = curl_exec($curl);
-$err         = curl_error($curl);
+$response = curl_exec($curl);
+$err = curl_error($curl);
 
 curl_close($curl);
 
 if ($err) {
-    // Si hay un error finalizar el webservice
     die("cURL Error #:" . $err);
 } else {
-    // Si no hay errores, actualizar los registros de la tabla y marcarlos como enviados
     if ($enableUpdate) {
         if ($conexion->multi_query($SqlUpdate) === TRUE) {
             $mensajeUpdate    = "Registros Insertados!  ";
@@ -138,35 +134,5 @@ if ($err) {
 
 mysqli_close($conexion);
 
-print_r("  <!DOCTYPE html>\n");
-print_r("  <html lang=\"en\">\n");
-print_r("    <head>\n");
-print_r("      <meta charset=\"utf-8\">\n");
-print_r("      <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\n");
-print_r("      <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\" integrity=\"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u\" crossorigin=\"anonymous\">");
-print_r("      <title>WebService Alicorp</title>\n");
-print_r("    </head>\n");
-print_r("    <body>\n");
-print_r("      <div class=\"container\">\n");
-print_r("         <nav class=\"navbar navbar-default\">");
-print_r("           <div class=\"container-fluid\">");
-print_r("             <div class=\"navbar-header\">");
-print_r("               <a class=\"navbar-brand\" href=\"#\">");
-print_r("                 Unidades a Transmitir: " . json_encode($placas, JSON_PRETTY_PRINT) . "");
-print_r("               </a>");
-print_r("             </div>");
-print_r("           </div>");
-print_r("         </nav>");
-print_r("         <div class=\"panel panel-default\">");
-print_r("           <div class=\"panel-body\">");
-print_r("				<pre><code>" . json_encode($items, JSON_PRETTY_PRINT) . "</code></pre>");
-print_r("           </div>");
-print_r("         </div>");
-print_r("         <div class=\"panel panel-default\">");
-print_r("           <div class=\"panel-body\">");
-print_r("				<pre><code>" . $response . "</code></pre>");
-print_r("           </div>");
-print_r("         </div>");
-print_r("      </div>\n");
-print_r("    </body>\n");
-print_r("  </html>\n");
+print_r(json_encode($items, JSON_PRETTY_PRINT));
+print_r(json_encode($items, JSON_PRETTY_PRINT));
