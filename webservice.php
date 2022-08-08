@@ -13,17 +13,16 @@ date_default_timezone_set('America/Lima');
 
 require('config.php');
 
-
 // Variables
-$items['items']     = array();
-$responseData          = array();
-$placas             = array();
-$SqlUpdate             = "";
-$mensajeUpdate        = "";
-$devicesCount        = 0;
-$placaTemp            = "";
+$items['items'] = array();
+$responseData = array();
+$placas = array();
+$SqlUpdate = "";
+$mensajeUpdate = "";
+$devicesCount = 0;
+$placaTemp = "";
 
-$conexion             = @new mysqli($dbHost, $dbUser, $dbPass, $dbName, $dbPort);
+$conexion = @new mysqli($dbHost, $dbUser, $dbPass, $dbName, $dbPort);
 
 if ($conexion->connect_error) {
     die('Error de conectando a la base de datos: ' . $conexion->connect_error);
