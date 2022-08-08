@@ -18,7 +18,7 @@ if ($conexion->connect_error) {
     die('Error de conectando a la base de datos: ' . $conexion->connect_error);
 }
 
-$sqlQuery     = "SELECT `posicionId`, `vehiculoId`, `velocidad`, `satelites`, `rumbo`, `latitud`, `longitud`, `altitud`, `gpsDate`, `gpsTime`, `statusCode`, `ignition`, `odometro`, `horometro`, `nivelBateria`, `estado` FROM `$dbName` WHERE `estado`='Nuevo' ORDER BY `vehiculoId`, `posicionId` DESC LIMIT 100;";
+$sqlQuery     = "SELECT `posicionId`, `vehiculoId`, `velocidad`, `satelites`, `rumbo`, `latitud`, `longitud`, `altitud`, `gpsDate`, `gpsTime`, `statusCode`, `ignition`, `odometro`, `horometro`, `nivelBateria`, `estado` FROM `$dbTable` WHERE `estado`='Nuevo' ORDER BY `vehiculoId`, `posicionId` DESC LIMIT 100;";
 
 $resultado     = $conexion->query($sqlQuery);
 
@@ -87,7 +87,7 @@ if ($resultado->num_rows > 0) {
         }
 
         if ($enableUpdate) {
-            $SqlUpdate .= "UPDATE `$dbName` SET `estado`='Sent' WHERE `posicionId`=$rID AND `vehiculoId`='$dID' LIMIT 1;";
+            $SqlUpdate .= "UPDATE `$dbTable` SET `estado`='Sent' WHERE `posicionId`=$rID AND `vehiculoId`='$dID' LIMIT 1;";
         }
 
         $devicesCount++;

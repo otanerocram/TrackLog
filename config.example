@@ -1,10 +1,11 @@
 <?php
+$dbHost = "host";
+$dbPort = 3306;
+$dbName = "gts";
+$dbUser = "gts";
+$dbPass = "pass";
+$dbTable = "TrackLog";
 
-$dbHost         = "host";
-$dbPort         = 3306;
-$dbName         = "TrackLog";
-$dbUser         = "gts";
-$dbPass         = "pass";
 $gpsProvider    = "Provider";
 $enableUpdate   = true;
 
