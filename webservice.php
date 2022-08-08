@@ -1,5 +1,4 @@
 <?php
-
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 header('Content-Type: text/html; charset=UTF-8');
@@ -13,15 +12,6 @@ date_default_timezone_set('America/Lima');
 
 require('config.php');
 
-// Variables
-$items['items'] = array();
-$responseData = array();
-$placas = array();
-$SqlUpdate = "";
-$mensajeUpdate = "";
-$devicesCount = 0;
-$placaTemp = "";
-
 $conexion = @new mysqli($dbHost, $dbUser, $dbPass, $dbName, $dbPort);
 
 if ($conexion->connect_error) {
@@ -31,6 +21,15 @@ if ($conexion->connect_error) {
 $sqlQuery     = "SELECT `posicionId`, `vehiculoId`, `velocidad`, `satelites`, `rumbo`, `latitud`, `longitud`, `altitud`, `gpsDate`, `gpsTime`, `statusCode`, `ignition`, `odometro`, `horometro`, `nivelBateria`, `estado` FROM `$dbName` WHERE `estado`='Nuevo' ORDER BY `vehiculoId`, `posicionId` DESC LIMIT 100;";
 
 $resultado     = $conexion->query($sqlQuery);
+
+// Variables
+$items['items'] = array();
+$responseData = array();
+$placas = array();
+$SqlUpdate = "";
+$mensajeUpdate = "";
+$devicesCount = 0;
+$placaTemp = "";
 
 if ($resultado->num_rows > 0) {
 
